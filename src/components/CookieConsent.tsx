@@ -11,8 +11,8 @@ export const CookieConsent = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [preferences, setPreferences] = useState<CookiePreferences>({
     necessary: true,
-    marketing: false,
-    analytics: false,
+    marketing: true,
+    analytics: true,
   });
   const { toast } = useToast();
 
