@@ -1,22 +1,31 @@
-// Native cookie implementation - NO npm packages needed!
+export interface CookiePreferences {
+  necessary: boolean;
+  marketing: boolean;
+  analytics: boolean;
+}
+
 export interface UserData {
-  name: string;
-  email: string;
-  country: string;
+  userId: string;
+  preferences: CookiePreferences;
   visitDate: string;
   consent: boolean;
 }
 
 const COOKIE_NAME = 'quantzen_user_data';
 const CONSENT_COOKIE = 'quantzen_consent';
+const PREFERENCES_COOKIE = 'quantzen_preferences';
 const COOKIE_EXPIRY_DAYS = 365;
+
+const generateUserId = () => {
+  return 'user_' + Math.random().toString(36).substr(2, 9) + Date.now();
+};
 
 export const cookieUtils = {
   setCookie(name: string, value: string, days: number) {
     const date = new Date();
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     const expires = `expires=${date.toUTCString()}`;
-    document.cookie = `${name}=${value};${expires};path=/;secure;samesite=strict`;
+    document.cookie = `${name}=${value};${expires};path=/;samesite=strict`;
   },
 
   getCookie(name: string): string | null {
@@ -34,33 +43,47 @@ export const cookieUtils = {
     document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
   },
 
-  setConsent(hasConsent: boolean) {
+  setConsent(hasConsent: boolean, preferences: CookiePreferences) {
     this.setCookie(CONSENT_COOKIE, hasConsent.toString(), COOKIE_EXPIRY_DAYS);
+    this.setCookie(PREFERENCES_COOKIE, JSON.stringify(preferences), COOKIE_EXPIRY_DAYS);
+    
+    if (hasConsent) {
+      this.initializeUserData(preferences);
+    }
   },
 
   hasConsent(): boolean {
     return this.getCookie(CONSENT_COOKIE) === 'true';
   },
 
-  setUserData(userData: Partial<UserData>) {
-    if (!this.hasConsent()) {
-      console.warn('Cannot save user data without consent');
-      return false;
+  getPreferences(): CookiePreferences {
+    const prefs = this.getCookie(PREFERENCES_COOKIE);
+    if (!prefs) {
+      return { necessary: true, marketing: false, analytics: false };
     }
+    try {
+      return JSON.parse(prefs);
+    } catch {
+      return { necessary: true, marketing: false, analytics: false };
+    }
+  },
 
+  initializeUserData(preferences: CookiePreferences) {
     const existingData = this.getUserData();
-    const updatedData: UserData = {
-      name: '',
-      email: '',
-      country: '',
-      visitDate: new Date().toISOString(),
-      consent: true,
-      ...existingData,
-      ...userData,
-    };
-
-    this.setCookie(COOKIE_NAME, JSON.stringify(updatedData), COOKIE_EXPIRY_DAYS);
-    return true;
+    
+    if (!existingData) {
+      const userData: UserData = {
+        userId: generateUserId(),
+        preferences,
+        visitDate: new Date().toISOString(),
+        consent: true,
+      };
+      
+      this.setCookie(COOKIE_NAME, JSON.stringify(userData), COOKIE_EXPIRY_DAYS);
+      return userData;
+    }
+    
+    return existingData;
   },
 
   getUserData(): UserData | null {
@@ -76,6 +99,7 @@ export const cookieUtils = {
   clearAll() {
     this.deleteCookie(COOKIE_NAME);
     this.deleteCookie(CONSENT_COOKIE);
+    this.deleteCookie(PREFERENCES_COOKIE);
   },
 
   isFirstVisit(): boolean {

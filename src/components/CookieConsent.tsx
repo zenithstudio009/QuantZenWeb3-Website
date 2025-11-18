@@ -1,227 +1,245 @@
 import { useState, useEffect } from 'react';
-import { X, Cookie, Shield, MapPin, User, Mail } from 'lucide-react';
-import { cookieUtils } from '@/lib/cookies';
+import { Cookie, ChevronUp, ChevronDown } from 'lucide-react';
+import { cookieUtils, CookiePreferences } from '@/lib/cookies';
+import { trackUserConsent } from '@/lib/analytics';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 
-interface CookieConsentProps {
-  onAccept?: () => void;
-  onDecline?: () => void;
-}
-
-const countries = [
-  'United States', 'United Kingdom', 'Canada', 'Australia', 'Germany',
-  'France', 'India', 'Japan', 'Singapore', 'Netherlands', 'Other'
-];
-
-export const CookieConsent = ({ onAccept, onDecline }: CookieConsentProps) => {
+export const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    country: ''
+  const [showDetails, setShowDetails] = useState(false);
+  const [preferences, setPreferences] = useState<CookiePreferences>({
+    necessary: true,
+    marketing: false,
+    analytics: false,
   });
   const { toast } = useToast();
 
   useEffect(() => {
-    // Show banner if user hasn't made a choice
     if (cookieUtils.isFirstVisit()) {
-      setIsVisible(true);
+      setTimeout(() => setIsVisible(true), 1000);
     }
   }, []);
 
-  const handleAccept = () => {
-    cookieUtils.setConsent(true);
-    setShowForm(true);
-    toast({
-      title: "Thank you!",
-      description: "Please provide your details to enhance your experience.",
-    });
-  };
-
-  const handleDecline = () => {
-    cookieUtils.setConsent(false);
+  const handleAcceptAll = () => {
+    const allAccepted: CookiePreferences = {
+      necessary: true,
+      marketing: true,
+      analytics: true,
+    };
+    
+    cookieUtils.setConsent(true, allAccepted);
+    const userData = cookieUtils.initializeUserData(allAccepted);
+    trackUserConsent(userData.userId, true, allAccepted);
+    
     setIsVisible(false);
-    onDecline?.();
     toast({
-      title: "Cookies declined",
-      description: "You can still browse our website with limited features.",
+      title: "All Cookies Accepted",
+      description: "Thank you! Your preferences have been saved.",
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleAcceptSelection = () => {
+    cookieUtils.setConsent(true, preferences);
+    const userData = cookieUtils.initializeUserData(preferences);
+    trackUserConsent(userData.userId, true, preferences);
     
-    if (!formData.name || !formData.email || !formData.country) {
-      toast({
-        title: "Missing information",
-        description: "Please fill in all fields.",
-        variant: "destructive"
-      });
-      return;
-    }
+    setIsVisible(false);
+    toast({
+      title: "Cookie Preferences Saved",
+      description: "Your selection has been saved.",
+    });
+  };
 
-    const success = cookieUtils.setUserData(formData);
+  const handleToggle = (key: keyof CookiePreferences) => {
+    if (key === 'necessary') return;
     
-    if (success) {
-      setIsVisible(false);
-      onAccept?.();
-      toast({
-        title: "Welcome to QuantZen! 🎉",
-        description: `Thanks ${formData.name}! Your preferences have been saved.`,
-      });
-    }
+    setPreferences(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center p-4 sm:items-center sm:p-0 bg-black/50 backdrop-blur-sm">
-      <div className="relative w-full max-w-2xl overflow-hidden rounded-lg bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl border border-teal-500/20">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-teal-600 to-cyan-600 p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <Cookie className="h-6 w-6 text-white" />
-              <h3 className="text-xl font-bold text-white">
-                {showForm ? 'Tell us about yourself' : 'Cookie Consent'}
-              </h3>
-            </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleDecline}
-              className="text-white hover:bg-white/20"
-            >
-              <X className="h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="p-6">
-          {!showForm ? (
-            <>
-              <div className="mb-6 space-y-3">
-                <p className="text-gray-300 leading-relaxed">
-                  We use cookies to enhance your experience, analyze site traffic, 
-                  and personalize content. Your privacy matters to us.
+    <div className="fixed bottom-0 left-0 right-0 z-[9999] animate-slide-up">
+      <div 
+        className="border-t shadow-2xl backdrop-blur-md"
+        style={{
+          background: "rgba(57, 96, 134, 0.95)",
+          borderColor: "hsl(var(--quantum-primary) / 0.3)"
+        }}
+      >
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Main Content */}
+          <div className="p-4 md:p-6">
+            
+            {/* Header Row */}
+            <div className="flex items-start gap-4 mb-4">
+              <div 
+                className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
+                style={{
+                  background: "hsl(var(--quantum-primary) / 0.2)",
+                }}
+              >
+                <Cookie className="w-5 h-5" style={{ color: "hsl(var(--quantum-primary))" }} />
+              </div>
+              <div className="flex-1">
+                <h2 className="text-white font-bold text-xl mb-2">🍪 Cookies</h2>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  We use cookies to enhance your experience and analyze site traffic. 
+                  You can customize your preferences below.
                 </p>
+              </div>
+            </div>
+
+            {/* Collapsible Details */}
+            {showDetails && (
+              <div className="mb-4 space-y-4 animate-fade-in">
                 
-                <div className="space-y-2 text-sm text-gray-400">
-                  <div className="flex items-start space-x-2">
-                    <Shield className="h-4 w-4 text-teal-400 mt-0.5" />
-                    <span>Quantum-safe encryption for your data</span>
+                {/* Necessary Cookies */}
+                <div 
+                  className="rounded-lg p-4 border"
+                  style={{
+                    background: "rgba(237, 245, 253, 0.1)",
+                    borderColor: "hsl(var(--quantum-primary) / 0.3)"
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-white font-semibold">Necessary cookies</h3>
+                    <Switch
+                      checked={preferences.necessary}
+                      disabled
+                      className="data-[state=checked]:bg-quantum-primary"
+                    />
                   </div>
-                  <div className="flex items-start space-x-2">
-                    <Cookie className="h-4 w-4 text-teal-400 mt-0.5" />
-                    <span>Essential cookies for site functionality</span>
+                  <p className="text-white/70 text-xs leading-relaxed">
+                    Required for site functionality. These cookies allow you to browse our website and use our features.
+                  </p>
+                </div>
+
+                {/* Marketing Cookies */}
+                <div 
+                  className="rounded-lg p-4 border"
+                  style={{
+                    background: "rgba(237, 245, 253, 0.1)",
+                    borderColor: "hsl(var(--quantum-primary) / 0.3)"
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-white font-semibold">Marketing cookies</h3>
+                    <Switch
+                      checked={preferences.marketing}
+                      onCheckedChange={() => handleToggle('marketing')}
+                      className="data-[state=checked]:bg-quantum-primary"
+                    />
                   </div>
-                  <div className="flex items-start space-x-2">
-                    <MapPin className="h-4 w-4 text-teal-400 mt-0.5" />
-                    <span>Location data for personalized content</span>
+                  <p className="text-white/70 text-xs leading-relaxed">
+                    Track your activity to help deliver more relevant advertising campaigns.
+                  </p>
+                </div>
+
+                {/* Analytics Cookies */}
+                <div 
+                  className="rounded-lg p-4 border"
+                  style={{
+                    background: "rgba(237, 245, 253, 0.1)",
+                    borderColor: "hsl(var(--quantum-primary) / 0.3)"
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-white font-semibold">Analytics cookies</h3>
+                    <Switch
+                      checked={preferences.analytics}
+                      onCheckedChange={() => handleToggle('analytics')}
+                      className="data-[state=checked]:bg-quantum-primary"
+                    />
                   </div>
+                  <p className="text-white/70 text-xs leading-relaxed">
+                    Help us understand how visitors interact with our website to improve user experience.
+                  </p>
+                </div>
+
+                {/* Footer Info */}
+                <div className="text-xs text-white/70 leading-relaxed">
+                  Further information can be found in our{' '}
+                  <a 
+                    href="/privacy" 
+                    className="hover:underline"
+                    style={{ color: "hsl(var(--quantum-primary))" }}
+                  >
+                    Privacy Statement
+                  </a>{' '}
+                  and{' '}
+                  <a 
+                    href="/cookies" 
+                    className="hover:underline"
+                    style={{ color: "hsl(var(--quantum-primary))" }}
+                  >
+                    Cookie Policy
+                  </a>.
                 </div>
               </div>
+            )}
 
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Button
-                  onClick={handleAccept}
-                  className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
-                >
-                  Accept & Continue
-                </Button>
-                <Button
-                  onClick={handleDecline}
-                  variant="outline"
-                  className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-800"
-                >
-                  Decline
-                </Button>
-              </div>
-            </>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-gray-300 flex items-center space-x-2">
-                  <User className="h-4 w-4" />
-                  <span>Your Name</span>
-                </Label>
-                <Input
-                  id="name"
-                  placeholder="John Doe"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="bg-slate-800 border-gray-700 text-white"
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-gray-300 flex items-center space-x-2">
-                  <Mail className="h-4 w-4" />
-                  <span>Email Address</span>
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="john@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="bg-slate-800 border-gray-700 text-white"
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="country" className="text-gray-300 flex items-center space-x-2">
-                  <MapPin className="h-4 w-4" />
-                  <span>Country</span>
-                </Label>
-                <Select
-                  value={formData.country}
-                  onValueChange={(value) => setFormData({ ...formData, country: value })}
-                  required
-                >
-                  <SelectTrigger className="bg-slate-800 border-gray-700 text-white">
-                    <SelectValue placeholder="Select your country" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {countries.map((country) => (
-                      <SelectItem key={country} value={country}>
-                        {country}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
+            {/* Buttons Row */}
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              
+              {/* Customize Button */}
               <Button
-                type="submit"
-                className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white"
+                onClick={() => setShowDetails(!showDetails)}
+                variant="outline"
+                className="w-full sm:w-auto text-white hover:bg-white/10 hover:text-white"
+                style={{
+                  borderColor: "hsl(var(--quantum-primary) / 0.5)",
+                  background: "transparent"
+                }}
               >
-                Save & Continue
+                {showDetails ? (
+                  <>
+                    <ChevronDown className="w-4 h-4 mr-2" />
+                    Hide Details
+                  </>
+                ) : (
+                  <>
+                    <ChevronUp className="w-4 h-4 mr-2" />
+                    Customize
+                  </>
+                )}
               </Button>
-            </form>
-          )}
-        </div>
 
-        {/* Footer */}
-        <div className="bg-slate-900/50 px-6 py-3 text-xs text-gray-400 text-center">
-          Your data is protected with quantum-safe encryption. Read our{' '}
-          <a href="/privacy" className="text-teal-400 hover:underline">
-            Privacy Policy
-          </a>
+              {/* Accept Selection (only show when details expanded) */}
+              {showDetails && (
+                <Button
+                  onClick={handleAcceptSelection}
+                  variant="outline"
+                  className="w-full sm:w-auto text-white hover:bg-white/10"
+                  style={{
+                    borderColor: "hsl(var(--quantum-primary))",
+                    color: "hsl(var(--quantum-primary))",
+                    background: "transparent"
+                  }}
+                >
+                  Accept Selection
+                </Button>
+              )}
+
+              {/* Accept All */}
+              <Button
+                onClick={handleAcceptAll}
+                className="w-full sm:flex-1 text-white font-semibold hover:shadow-lg transition-all duration-300"
+                style={{
+                  background: "linear-gradient(135deg, hsl(var(--quantum-primary)), hsl(var(--quantum-secondary)))",
+                  border: "none"
+                }}
+              >
+                Accept All Cookies
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

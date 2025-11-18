@@ -145,10 +145,10 @@ const Footer = () => {
 
             {/* Countdown boxes */}
             <div className="flex gap-3 sm:gap-4 flex-wrap justify-center">
-              <CountdownBox label="Days" value={timeLeft.days} />
-              <CountdownBox label="Hours" value={timeLeft.hours} />
-              <CountdownBox label="Minutes" value={timeLeft.minutes} />
-              <CountdownBox label="Seconds" value={timeLeft.seconds} isSeconds />
+              <CountdownBox label="Days" value={timeLeft.days} isSeconds={false} />
+              <CountdownBox label="Hours" value={timeLeft.hours} isSeconds={false} />
+              <CountdownBox label="Minutes" value={timeLeft.minutes} isSeconds={false} />
+              <CountdownBox label="Seconds" value={timeLeft.seconds} isSeconds={true} />
             </div>
           </div>
         </div>
