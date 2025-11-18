@@ -13,6 +13,7 @@ const Navigation = () => {
     { name: "Partners", href: "/call-for-pocs" },
     { name: "Roadmap", href: "/roadmap" },
     { name: "About Us", href: "/about" },
+    { name: "Whitepaper", href: "https://drive.google.com/file/d/1OGWxGzp27GdKniaZqsLe_EXBXYO9VbGy/view?usp=sharing", external: true },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -67,13 +68,25 @@ const Navigation = () => {
                     transition={{ delay: index * 0.05 }}
                     whileHover={{ scale: 1.05, y: -2 }}
                   >
-                    <Link
-                      to={link.href}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-gray-900 bg-white/60 shadow-sm border border-quantum-primary/40 backdrop-blur-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)] hover:border-quantum-primary"
-                    >
-                      <span className="text-sm sm:text-base">{link.name}</span>
-                      <ArrowUpRight className="w-4 h-4 opacity-90 text-quantum-primary" />
-                    </Link>
+                    {link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-gray-900 bg-white/60 shadow-sm border border-quantum-primary/40 backdrop-blur-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)] hover:border-quantum-primary"
+                      >
+                        <span className="text-sm sm:text-base">{link.name}</span>
+                        <ArrowUpRight className="w-4 h-4 opacity-90 text-quantum-primary" />
+                      </a>
+                    ) : (
+                      <Link
+                        to={link.href}
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-gray-900 bg-white/60 shadow-sm border border-quantum-primary/40 backdrop-blur-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)] hover:border-quantum-primary"
+                      >
+                        <span className="text-sm sm:text-base">{link.name}</span>
+                        <ArrowUpRight className="w-4 h-4 opacity-90 text-quantum-primary" />
+                      </Link>
+                    )}
                   </motion.div>
                 ))}
               </div>
@@ -126,15 +139,29 @@ const Navigation = () => {
               <div className="px-4 py-4 space-y-3 flex flex-col">
                 {/* Navigation Links */}
                 {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between px-4 py-2 rounded-lg font-medium text-gray-900 bg-white border border-quantum-primary/50 transition-all duration-300 hover:shadow-[0_0_12px_rgba(80,200,255,0.6)] hover:bg-gray-50"
-                  >
-                    {link.name}
-                    <ArrowUpRight className="w-4 h-4 opacity-90 text-quantum-primary" />
-                  </Link>
+                  link.external ? (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center justify-between px-4 py-2 rounded-lg font-medium text-gray-900 bg-white border border-quantum-primary/50 transition-all duration-300 hover:shadow-[0_0_12px_rgba(80,200,255,0.6)] hover:bg-gray-50"
+                    >
+                      {link.name}
+                      <ArrowUpRight className="w-4 h-4 opacity-90 text-quantum-primary" />
+                    </a>
+                  ) : (
+                    <Link
+                      key={link.name}
+                      to={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center justify-between px-4 py-2 rounded-lg font-medium text-gray-900 bg-white border border-quantum-primary/50 transition-all duration-300 hover:shadow-[0_0_12px_rgba(80,200,255,0.6)] hover:bg-gray-50"
+                    >
+                      {link.name}
+                      <ArrowUpRight className="w-4 h-4 opacity-90 text-quantum-primary" />
+                    </Link>
+                  )
                 ))}
                 
                 {/* Social Icons */}

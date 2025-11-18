@@ -78,11 +78,9 @@ const Product = () => {
   ];
 
 const handleDownload = () => {
-    // Open PDF in new tab for viewing/downloading
-    const fileUrl = "/QuantZen™_ WhitePaper .pdf"; // Ensure this file is in the public directory
-    // Use current domain instead of localhost
-    const fullUrl = window.location.origin + fileUrl;
-    window.open(fullUrl, '_blank');
+    // Open Google Drive document in new tab for viewing/downloading
+    const driveUrl = "https://drive.google.com/file/d/1OGWxGzp27GdKniaZqsLe_EXBXYO9VbGy/view?usp=sharing";
+    window.open(driveUrl, '_blank');
   };
 
   return (
