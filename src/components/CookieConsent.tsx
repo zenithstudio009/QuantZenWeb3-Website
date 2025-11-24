@@ -63,284 +63,176 @@ export const CookieConsent = () => {
 
   // Calculate if all optional cookies are enabled
   const allOptionalEnabled = preferences.marketing && preferences.analytics;
-  const buttonText = allOptionalEnabled ? "Accept All Cookies" : "Accept Necessary Cookies";
+  const buttonText = allOptionalEnabled ? "Accept All" : "Accept Selection";
+  const handleMainAction = allOptionalEnabled ? handleAcceptAll : handleAcceptSelection;
 
   if (!isVisible) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[9999] animate-slide-up">
-      {/* Glittery floating elements */}
-      {[...Array(15)].map((_, i) => (
-        <div
-          key={`cookie-glitter-${i}`}
-          className="absolute animate-float"
-          style={{
-            width: `${Math.random() * 8 + 4}px`,
-            height: `${Math.random() * 8 + 4}px`,
-            backgroundColor: "hsl(var(--quantum-primary))",
-            borderRadius: "50%",
-            top: `${Math.random() * 60 + 10}%`,
-            left: `${Math.random() * 100}%`,
-            boxShadow: `0 0 10px hsl(var(--quantum-primary)), 0 0 20px hsl(var(--quantum-secondary))`,
-            animationDelay: `${Math.random() * 3}s`,
-            animationDuration: `${Math.random() * 4 + 3}s`,
-            opacity: 0.7,
-            zIndex: -1
-          }}
-        />
-      ))}
-      
+      {/* Main Cookie Banner */}
       <div 
-        className="border-t shadow-quantum backdrop-blur-xl gaming-border animate-pulse-glow relative overflow-hidden"
+        className="shadow-lg relative overflow-hidden border-t"
         style={{
-          background: "linear-gradient(135deg, rgba(57, 96, 134, 0.75) 0%, rgba(57, 96, 134, 0.85) 100%)",
-          borderColor: "hsl(var(--quantum-primary) / 0.6)",
-          backdropFilter: "blur(20px) saturate(180%)",
-          WebkitBackdropFilter: "blur(20px) saturate(180%)",
-          boxShadow: `
-            0 -4px 20px rgba(57, 96, 134, 0.3),
-            0 0 40px hsl(var(--quantum-primary) / 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1)
-          `
+          background: "white",
+          borderColor: "#e5e7eb",
+          boxShadow: "0 -4px 20px rgba(0, 0, 0, 0.1)"
         }}
       >
-        {/* Animated background lines */}
-        {[...Array(5)].map((_, i) => (
-          <div
-            key={`bg-line-${i}`}
-            className="absolute animate-border-flow"
-            style={{
-              width: `${Math.random() * 100 + 50}px`,
-              height: '1px',
-              background: `linear-gradient(90deg, transparent, hsl(var(--quantum-primary)), transparent)`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              opacity: 0.3
-            }}
-          />
-        ))}
-        
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="max-w-7xl mx-auto">
           
-          {/* Main Content */}
-          <div className="p-4 md:p-6">
+          {/* Main Banner Content */}
+          <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6 p-4 lg:p-6">
             
-            {/* Header Row */}
-            <div className="flex items-start gap-4 mb-4">
+            {/* Left side - Icon and Text */}
+            <div className="flex items-start gap-3 flex-1">
               <div 
-                className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center animate-glow-pulse"
+                className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
                 style={{
-                  background: "hsl(var(--quantum-primary) / 0.3)",
-                  boxShadow: "0 0 20px hsl(var(--quantum-primary) / 0.5)"
+                  background: "hsl(var(--quantum-primary) / 0.1)",
+                  border: "1px solid hsl(var(--quantum-primary) / 0.2)"
                 }}
               >
                 <Cookie 
-                  className="w-5 h-5" 
-                  style={{ 
-                    color: "hsl(var(--quantum-primary))",
-                    filter: "drop-shadow(0 0 4px currentColor)"
-                  }} 
+                  className="w-4 h-4" 
+                  style={{ color: "hsl(var(--quantum-primary))" }}
                 />
               </div>
+              
               <div className="flex-1">
-                <h2 className="text-white font-bold text-xl mb-2 glow-text">🍪 Cookies</h2>
-                <p className="text-white/90 text-sm leading-relaxed">
-                  We use cookies to enhance your experience and analyze site traffic. 
-                  You can customize your preferences below.
+                <h3 className="text-gray-900 font-semibold text-lg mb-2">
+                  We value your privacy
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  We use cookies to enhance your browsing experience, provide personalized content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. You can manage your preferences anytime.
                 </p>
               </div>
             </div>
 
-            {/* Collapsible Details */}
-            {showDetails && (
-              <div className="mb-4 space-y-4 animate-fade-in">
-                
-                {/* Necessary Cookies */}
-                <div 
-                  className="rounded-lg p-3 md:p-4 border gaming-card hover-lift"
-                  style={{
-                    background: "rgba(237, 245, 253, 0.08)",
-                    borderColor: "hsl(var(--quantum-primary) / 0.4)",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
-                    boxShadow: "0 4px 15px rgba(57, 96, 134, 0.15)"
-                  }}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-white font-semibold text-sm md:text-base">Necessary cookies</h3>
-                    <Switch
-                      checked={preferences.necessary}
-                      disabled
-                      className="data-[state=checked]:bg-quantum-primary"
-                    />
-                  </div>
-                  <p className="text-white/90 text-xs leading-relaxed">
-                    Required for site functionality. These cookies allow you to browse our website and use our features.
-                  </p>
-                </div>
-
-                {/* Marketing Cookies */}
-                <div 
-                  className="rounded-lg p-3 md:p-4 border gaming-card hover-lift"
-                  style={{
-                    background: "rgba(237, 245, 253, 0.08)",
-                    borderColor: "hsl(var(--quantum-primary) / 0.4)",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
-                    boxShadow: "0 4px 15px rgba(57, 96, 134, 0.15)"
-                  }}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-white font-semibold text-sm md:text-base">Marketing cookies</h3>
-                    <Switch
-                      checked={preferences.marketing}
-                      onCheckedChange={() => handleToggle('marketing')}
-                      className="data-[state=checked]:bg-quantum-primary"
-                    />
-                  </div>
-                  <p className="text-white/90 text-xs leading-relaxed">
-                    Track your activity to help deliver more relevant advertising campaigns.
-                  </p>
-                </div>
-
-                {/* Analytics Cookies */}
-                <div 
-                  className="rounded-lg p-3 md:p-4 border gaming-card hover-lift"
-                  style={{
-                    background: "rgba(237, 245, 253, 0.08)",
-                    borderColor: "hsl(var(--quantum-primary) / 0.4)",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
-                    boxShadow: "0 4px 15px rgba(57, 96, 134, 0.15)"
-                  }}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-white font-semibold text-sm md:text-base">Analytics cookies</h3>
-                    <Switch
-                      checked={preferences.analytics}
-                      onCheckedChange={() => handleToggle('analytics')}
-                      className="data-[state=checked]:bg-quantum-primary"
-                    />
-                  </div>
-                  <p className="text-white/90 text-xs leading-relaxed">
-                    Help us understand how visitors interact with our website to improve user experience.
-                  </p>
-                </div>
-
-                {/* Footer Info */}
-                <div className="text-xs text-black leading-relaxed px-2 font-medium">
-                  Further information can be found in our{' '}
-                  <a 
-                    href="/privacy" 
-                    className="text-black hover:underline transition-all duration-300 font-semibold"
-                  >
-                    Privacy Statement
-                  </a>{' '}
-                  and{' '}
-                  <a 
-                    href="/cookies" 
-                    className="text-black hover:underline transition-all duration-300 font-semibold"
-                  >
-                    Cookie Policy
-                  </a>.
-                </div>
-              </div>
-            )}
-
-            {/* Buttons Row */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 md:gap-4 justify-center px-2">
+            {/* Right side - Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
               
               {/* Customize Button */}
               <Button
                 onClick={() => setShowDetails(!showDetails)}
-                className="flex-1 sm:flex-none sm:min-w-[140px] md:min-w-[160px] lg:min-w-[180px] xl:w-48 h-10 sm:h-11 md:h-12 text-white font-bold text-sm md:text-base transition-all duration-300 hover-lift px-3 sm:px-4 md:px-6"
-                style={{
-                  background: allOptionalEnabled 
-                    ? "linear-gradient(135deg, hsl(var(--quantum-primary)), hsl(var(--quantum-secondary)))"
-                    : "linear-gradient(135deg, hsl(var(--quantum-primary) / 0.8), hsl(var(--quantum-primary)))",
-                  border: "1px solid hsl(var(--quantum-primary) / 0.5)",
-                  borderRadius: "8px sm:10px md:12px",
-                  boxShadow: `
-                    0 4px 15px rgba(57, 96, 134, 0.4),
-                    0 0 20px hsl(var(--quantum-primary) / 0.3),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.2)
-                  `
-                }}
+                className="w-full sm:w-auto px-6 py-2.5 text-sm font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 transition-all duration-200 rounded-md flex items-center justify-center gap-2"
               >
-                {showDetails ? (
-                  <>
-                    <ChevronDown className="w-3 h-3 md:w-4 md:h-4 mr-1 sm:mr-2" />
-                    <span className="truncate">
-                      <span className="hidden sm:inline">Hide Details</span>
-                      <span className="sm:hidden">Hide</span>
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <ChevronUp className="w-3 h-3 md:w-4 md:h-4 mr-1 sm:mr-2" />
-                    <span className="truncate">
-                      <span className="hidden sm:inline">Customize</span>
-                      <span className="sm:hidden">Options</span>
-                    </span>
-                  </>
-                )}
+                <div className="w-4 h-4 grid grid-cols-2 gap-0.5">
+                  <div className="w-1.5 h-1.5 bg-gray-600 rounded-full"></div>
+                  <div className="w-1.5 h-1.5 bg-gray-600 rounded-full"></div>
+                  <div className="w-1.5 h-1.5 bg-gray-600 rounded-full"></div>
+                  <div className="w-1.5 h-1.5 bg-gray-600 rounded-full"></div>
+                </div>
+                Customize
               </Button>
-
-              {/* Accept Selection (only show when details expanded) */}
-              {showDetails && (
-                <Button
-                  onClick={handleAcceptSelection}
-                  className="flex-1 sm:flex-none sm:min-w-[200px] md:min-w-[240px] lg:min-w-[260px] xl:w-72 h-10 sm:h-11 md:h-12 text-white font-bold text-sm md:text-base transition-all duration-300 hover-lift px-3 sm:px-4 md:px-6"
-                  style={{
-                    background: allOptionalEnabled 
-                      ? "linear-gradient(135deg, hsl(var(--quantum-primary)), hsl(var(--quantum-secondary)))"
-                      : "linear-gradient(135deg, hsl(var(--quantum-primary) / 0.8), hsl(var(--quantum-primary)))",
-                    border: "1px solid hsl(var(--quantum-primary) / 0.5)",
-                    borderRadius: "8px sm:10px md:12px",
-                    boxShadow: `
-                      0 4px 15px rgba(57, 96, 134, 0.4),
-                      0 0 20px hsl(var(--quantum-primary) / 0.3),
-                      inset 0 1px 0 rgba(255, 255, 255, 0.2)
-                    `
-                  }}
-                >
-                  <span className="truncate">
-                    <span className="hidden sm:inline">Accept Selection</span>
-                    <span className="sm:hidden">Accept</span>
-                  </span>
-                </Button>
-              )}
 
               {/* Dynamic Accept Button */}
               <Button
-                onClick={handleAcceptAll}
-                className="flex-1 sm:flex-none sm:min-w-[200px] md:min-w-[240px] lg:min-w-[260px] xl:w-72 h-10 sm:h-11 md:h-12 text-white font-bold text-sm md:text-base transition-all duration-300 hover-lift animate-pulse-glow px-3 sm:px-4 md:px-6"
+                onClick={handleMainAction}
+                className="w-full sm:w-auto px-6 py-2.5 text-sm font-medium border-0 text-white transition-all duration-200 rounded-md flex items-center justify-center gap-2"
                 style={{
-                  background: allOptionalEnabled 
-                    ? "linear-gradient(135deg, hsl(var(--quantum-primary)), hsl(var(--quantum-secondary)))"
-                    : "linear-gradient(135deg, hsl(var(--quantum-primary) / 0.8), hsl(var(--quantum-primary)))",
-                  border: "1px solid hsl(var(--quantum-primary) / 0.5)",
-                  borderRadius: "8px sm:10px md:12px",
-                  boxShadow: `
-                    0 4px 15px rgba(57, 96, 134, 0.4),
-                    0 0 20px hsl(var(--quantum-primary) / 0.3),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.2)
-                  `
+                  background: "hsl(var(--quantum-primary))"
                 }}
               >
-                <span className="text-center w-full whitespace-nowrap overflow-hidden text-ellipsis">
-                  <span className="hidden lg:inline">{buttonText}</span>
-                  <span className="hidden sm:inline lg:hidden">
-                    {allOptionalEnabled ? "Accept All Cookies" : "Accept Necessary"}
-                  </span>
-                  <span className="sm:hidden">
-                    {allOptionalEnabled ? "Accept All" : "Accept"}
-                  </span>
-                </span>
+                <div className="w-4 h-4 flex items-center justify-center">
+                  <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+                    <path d="M1 4.5L4.5 8L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                {buttonText}
               </Button>
             </div>
           </div>
+
+          {/* Collapsible Details */}
+          {showDetails && (
+            <div className="border-t border-gray-200 bg-gray-50/50 animate-fade-in">
+              <div className="max-w-7xl mx-auto p-4 lg:p-6">
+                <h4 className="text-gray-900 font-semibold text-lg mb-6">Cookie Preferences</h4>
+                
+                <div className="space-y-6">
+                  
+                  {/* Necessary Cookies */}
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1 pr-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h5 className="text-gray-900 font-semibold text-base">Necessary Cookies</h5>
+                        <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                          Always Active
+                        </span>
+                      </div>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        Essential cookies required for basic website functionality, security, and user authentication.
+                      </p>
+                    </div>
+                    <div className="flex-shrink-0">
+                      <Switch
+                        checked={true}
+                        disabled
+                        className="data-[state=checked]:bg-green-500"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Analytics Cookies */}
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1 pr-4">
+                      <h5 className="text-gray-900 font-semibold text-base mb-2">Analytics Cookies</h5>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        Help us understand how visitors interact with our website by collecting anonymous information.
+                      </p>
+                    </div>
+                    <div className="flex-shrink-0">
+                      <Switch
+                        checked={preferences.analytics}
+                        onCheckedChange={() => handleToggle('analytics')}
+                        className="data-[state=checked]:bg-blue-500"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Marketing Cookies */}
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1 pr-4">
+                      <h5 className="text-gray-900 font-semibold text-base mb-2">Marketing Cookies</h5>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        Used to track visitors across websites to display relevant ads and marketing campaigns.
+                      </p>
+                    </div>
+                    <div className="flex-shrink-0">
+                      <Switch
+                        checked={preferences.marketing}
+                        onCheckedChange={() => handleToggle('marketing')}
+                        className="data-[state=checked]:bg-blue-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Actions when details are shown */}
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <div className="text-sm text-gray-600">
+                    Further information can be found in our{' '}
+                    <a 
+                      href="/privacy" 
+                      className="underline hover:no-underline transition-all duration-200"
+                      style={{ color: "hsl(var(--quantum-primary))" }}
+                    >
+                      Privacy Statement
+                    </a>{' '}
+                    and{' '}
+                    <a 
+                      href="/cookies" 
+                      className="underline hover:no-underline transition-all duration-200"
+                      style={{ color: "hsl(var(--quantum-primary))" }}
+                    >
+                      Cookie Policy
+                    </a>.
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
