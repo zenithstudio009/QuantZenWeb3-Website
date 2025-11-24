@@ -254,7 +254,7 @@ export const CookieConsent = () => {
               {/* Customize Button */}
               <Button
                 onClick={() => setShowDetails(!showDetails)}
-                className="flex-1 sm:flex-none sm:min-w-[140px] md:min-w-[160px] lg:w-48 h-10 sm:h-11 md:h-12 text-white font-bold text-sm md:text-base transition-all duration-300 hover-lift px-3 sm:px-4 md:px-6"
+                className="flex-1 sm:flex-none sm:min-w-[140px] md:min-w-[160px] lg:min-w-[180px] xl:w-48 h-10 sm:h-11 md:h-12 text-white font-bold text-sm md:text-base transition-all duration-300 hover-lift px-3 sm:px-4 md:px-6"
                 style={{
                   background: allOptionalEnabled 
                     ? "linear-gradient(135deg, hsl(var(--quantum-primary)), hsl(var(--quantum-secondary)))"
@@ -291,7 +291,7 @@ export const CookieConsent = () => {
               {showDetails && (
                 <Button
                   onClick={handleAcceptSelection}
-                  className="flex-1 sm:flex-none sm:min-w-[140px] md:min-w-[160px] lg:w-48 h-10 sm:h-11 md:h-12 text-white font-bold text-sm md:text-base transition-all duration-300 hover-lift px-3 sm:px-4 md:px-6"
+                  className="flex-1 sm:flex-none sm:min-w-[200px] md:min-w-[240px] lg:min-w-[260px] xl:w-72 h-10 sm:h-11 md:h-12 text-white font-bold text-sm md:text-base transition-all duration-300 hover-lift px-3 sm:px-4 md:px-6"
                   style={{
                     background: allOptionalEnabled 
                       ? "linear-gradient(135deg, hsl(var(--quantum-primary)), hsl(var(--quantum-secondary)))"
@@ -315,7 +315,7 @@ export const CookieConsent = () => {
               {/* Dynamic Accept Button */}
               <Button
                 onClick={handleAcceptAll}
-                className="flex-1 sm:flex-none sm:min-w-[140px] md:min-w-[160px] lg:w-48 h-10 sm:h-11 md:h-12 text-white font-bold text-sm md:text-base transition-all duration-300 hover-lift animate-pulse-glow px-3 sm:px-4 md:px-6"
+                className="flex-1 sm:flex-none sm:min-w-[200px] md:min-w-[240px] lg:min-w-[260px] xl:w-72 h-10 sm:h-11 md:h-12 text-white font-bold text-sm md:text-base transition-all duration-300 hover-lift animate-pulse-glow px-3 sm:px-4 md:px-6"
                 style={{
                   background: allOptionalEnabled 
                     ? "linear-gradient(135deg, hsl(var(--quantum-primary)), hsl(var(--quantum-secondary)))"
@@ -329,8 +329,11 @@ export const CookieConsent = () => {
                   `
                 }}
               >
-                <span className="truncate text-center w-full">
-                  <span className="hidden sm:inline">{buttonText}</span>
+                <span className="text-center w-full whitespace-nowrap overflow-hidden text-ellipsis">
+                  <span className="hidden lg:inline">{buttonText}</span>
+                  <span className="hidden sm:inline lg:hidden">
+                    {allOptionalEnabled ? "Accept All Cookies" : "Accept Necessary"}
+                  </span>
                   <span className="sm:hidden">
                     {allOptionalEnabled ? "Accept All" : "Accept"}
                   </span>
