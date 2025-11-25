@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -6,15 +6,40 @@ import { Link } from "react-router-dom";
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navLinks = [
+  // Close menu when pressing Escape
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
+  // Main navigation items that will be visible on desktop
+  const mainNavLinks = [
+    { name: "Whitepaper", href: "https://drive.google.com/file/d/1saUFPcv5kjfmV_Qg4KEwrJz891EBnsCW/view?usp=drivesdk", external: true },
+    { name: "Contact", href: "/contact" },
+  ];
+
+  // Menu items that will be hidden in hamburger menu
+  const hiddenNavLinks = [
     { name: "Home", href: "/" },
     { name: "Why Us", href: "/why-us" },
     { name: "Product", href: "/product" },
     { name: "Partners", href: "/call-for-pocs" },
     { name: "Roadmap", href: "/roadmap" },
     { name: "About Us", href: "/about" },
-    { name: "Whitepaper", href: "https://drive.google.com/file/d/1OGWxGzp27GdKniaZqsLe_EXBXYO9VbGy/view?usp=sharing", external: true },
-    { name: "Contact", href: "/contact" },
   ];
 
   const socialLinks = [
@@ -58,9 +83,9 @@ const Navigation = () => {
           <div className="flex items-center ml-auto">
             {/* Desktop Links and Social Icons */}
             <div className="hidden md:flex items-center gap-2">
-              {/* Navigation Links */}
+              {/* Main Navigation Links (Whitepaper & Contact) */}
               <div className="flex items-center gap-2">
-                {navLinks.map((link, index) => (
+                {mainNavLinks.map((link, index) => (
                   <motion.div
                     key={link.name}
                     initial={{ opacity: 0, y: 10 }}
@@ -101,7 +126,7 @@ const Navigation = () => {
                     rel="noopener noreferrer"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: (navLinks.length + index) * 0.05 }}
+                    transition={{ delay: (mainNavLinks.length + index) * 0.05 }}
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     className="p-2 rounded-lg text-quantum-primary hover:text-quantum-secondary transition-all duration-300 hover:bg-quantum-primary/10 border border-quantum-primary/30 hover:border-quantum-primary/60 bg-white/40"
@@ -112,77 +137,148 @@ const Navigation = () => {
               </div>
             </div>
 
-            {/* Mobile Menu (always on right) */}
-            <div className="flex items-center gap-2 ml-2">
-              {/* Mobile Menu Button */}
-              <div className="md:hidden flex items-center">
-                <button
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="p-2 rounded-lg hover:bg-gray-100 transition-smooth text-gray-700 bg-white/60 border border-gray-200"
+            {/* Hamburger Menu Button - Always visible for accessing hidden items */}
+            <div className="flex items-center ml-2">
+              <motion.button
+                onClick={() => setIsOpen(!isOpen)}
+                className="p-2 rounded-lg hover:bg-gray-100 transition-all duration-300 text-gray-700 bg-white/60 border border-gray-200 hover:border-quantum-primary/50 hover:shadow-md relative z-50"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.div
+                  animate={isOpen ? { rotate: 180 } : { rotate: 0 }}
+                  transition={{ duration: 0.3 }}
                 >
                   {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                </button>
-              </div>
+                </motion.div>
+              </motion.button>
             </div>
           </div>
         </nav>
+      </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-border bg-white"
-            >
-              <div className="px-4 py-4 space-y-3 flex flex-col">
-                {/* Navigation Links */}
-                {navLinks.map((link) => (
-                  link.external ? (
-                    <a
+      {/* Backdrop overlay - only visible when menu is open */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+            onClick={() => setIsOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Right-side sliding panel */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ 
+              type: "spring", 
+              damping: 25, 
+              stiffness: 200,
+              duration: 0.5 
+            }}
+            className="fixed top-0 right-0 h-full w-80 sm:w-96 bg-white/95 backdrop-blur-md border-l border-quantum-primary/30 shadow-2xl z-50"
+          >
+            {/* Panel Header */}
+            <div className="flex items-center justify-between p-6 border-b border-quantum-primary/20">
+              <h2 className="text-xl font-semibold text-gray-900">Navigation</h2>
+              <motion.button
+                onClick={() => setIsOpen(false)}
+                className="p-2 rounded-lg hover:bg-gray-100 transition-all duration-300 text-gray-700"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <X className="w-6 h-6" />
+              </motion.button>
+            </div>
+
+            {/* Panel Content */}
+            <div className="flex flex-col h-full overflow-y-auto">
+              <div className="flex-1 p-6">
+                {/* All Navigation Links */}
+                <div className="space-y-3 mb-8">
+                  {hiddenNavLinks.map((link, index) => (
+                    <motion.div
                       key={link.name}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-between px-4 py-2 rounded-lg font-medium text-gray-900 bg-white border border-quantum-primary/50 transition-all duration-300 hover:shadow-[0_0_12px_rgba(80,200,255,0.6)] hover:bg-gray-50"
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
                     >
-                      {link.name}
-                      <ArrowUpRight className="w-4 h-4 opacity-90 text-quantum-primary" />
-                    </a>
-                  ) : (
-                    <Link
+                      <Link
+                        to={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className="group flex items-center justify-between p-4 rounded-xl font-medium text-gray-900 bg-white/80 border border-quantum-primary/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,255,0.3)] hover:bg-quantum-primary/5 hover:border-quantum-primary"
+                      >
+                        <span>{link.name}</span>
+                        <ArrowUpRight className="w-5 h-5 opacity-60 group-hover:opacity-100 text-quantum-primary transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                      </Link>
+                    </motion.div>
+                  ))}
+                  {mainNavLinks.map((link, index) => (
+                    <motion.div
                       key={link.name}
-                      to={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-between px-4 py-2 rounded-lg font-medium text-gray-900 bg-white border border-quantum-primary/50 transition-all duration-300 hover:shadow-[0_0_12px_rgba(80,200,255,0.6)] hover:bg-gray-50"
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: (hiddenNavLinks.length + index) * 0.1 }}
                     >
-                      {link.name}
-                      <ArrowUpRight className="w-4 h-4 opacity-90 text-quantum-primary" />
-                    </Link>
-                  )
-                ))}
-                
-                {/* Social Icons */}
-                <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-quantum-primary/30">
-                  {socialLinks.map((social) => (
-                    <a
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setIsOpen(false)}
+                          className="group flex items-center justify-between p-4 rounded-xl font-medium text-gray-900 bg-white/80 border border-quantum-primary/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,255,0.3)] hover:bg-quantum-primary/5 hover:border-quantum-primary"
+                        >
+                          <span>{link.name}</span>
+                          <ArrowUpRight className="w-5 h-5 opacity-60 group-hover:opacity-100 text-quantum-primary transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                        </a>
+                      ) : (
+                        <Link
+                          to={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className="group flex items-center justify-between p-4 rounded-xl font-medium text-gray-900 bg-white/80 border border-quantum-primary/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,255,0.3)] hover:bg-quantum-primary/5 hover:border-quantum-primary"
+                        >
+                          <span>{link.name}</span>
+                          <ArrowUpRight className="w-5 h-5 opacity-60 group-hover:opacity-100 text-quantum-primary transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                        </Link>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Panel Footer - Social Links */}
+              <div className="border-t border-quantum-primary/20 p-6">
+                <div className="flex items-center justify-center gap-4">
+                  {socialLinks.map((social, index) => (
+                    <motion.a
                       key={social.name}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-3 rounded-lg text-quantum-primary hover:text-quantum-secondary transition-all duration-300 hover:bg-quantum-primary/10 border border-quantum-primary/30 hover:border-quantum-primary/60 bg-white"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 + index * 0.1 }}
+                      whileHover={{ scale: 1.2, y: -4 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="p-3 rounded-xl text-quantum-primary hover:text-quantum-secondary transition-all duration-300 hover:bg-quantum-primary/10 border border-quantum-primary/30 hover:border-quantum-primary/60 bg-white/60 hover:shadow-lg"
                     >
                       {social.icon}
-                    </a>
+                    </motion.a>
                   ))}
                 </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

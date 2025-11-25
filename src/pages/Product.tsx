@@ -79,7 +79,7 @@ const Product = () => {
 
 const handleDownload = () => {
     // Open Google Drive document in new tab for viewing/downloading
-    const driveUrl = "https://drive.google.com/file/d/1OGWxGzp27GdKniaZqsLe_EXBXYO9VbGy/view?usp=sharing";
+    const driveUrl = "https://drive.google.com/file/d/1saUFPcv5kjfmV_Qg4KEwrJz891EBnsCW/view?usp=drivesdk";
     window.open(driveUrl, '_blank');
   };
 
@@ -366,7 +366,7 @@ const handleDownload = () => {
       >
         <FileText className="w-5 h-5 mr-2 flex-shrink-0" />
         <span className="block text-center">
-          DOWNLOAD WHITEPAPER / TECHNICAL DOCUMENTS
+         WHITEPAPER / TECHNICAL DOCUMENTS
         </span>
         <ArrowRight className="w-4 h-4 ml-2 flex-shrink-0" />
       </Button>
