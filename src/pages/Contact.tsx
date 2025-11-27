@@ -471,7 +471,7 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Mail Us",
-      contact: "info@zenithstudio.live",
+      contact: "support@quantzen.live",
       subtext: "We respond within 24 hours",
     },
     {
