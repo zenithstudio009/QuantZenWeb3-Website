@@ -168,14 +168,14 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           {/* Logo and Description */}
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-1 mb-1">
               <img 
                 src="/logo.png" 
                 alt="QuantZen Logo" 
                 className="w-24 h-24 object-contain"
               />
             </div>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="text-sm text-muted-foreground  mb-2">
               QuantZen - Quantum-safe, chain agnostic SDK securing Web3 applications without Hard Forks.
             </p>
             {/* <div className="flex gap-4">
