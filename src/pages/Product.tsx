@@ -262,7 +262,7 @@ const handleDownload = () => {
 </li>
                   <li>•Audited WASM modules to prevent side-channel leaks.
 </li>
-                  <li>• Optional encrypted IPFS audit logs — linked to on-chain metadata for compliance and traceability.
+                  <li>• Optional encrypted IPFS audit logs  linked to on-chain metadata for compliance and traceability.
 </li>
                 </ul>
 

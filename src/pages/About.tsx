@@ -343,7 +343,7 @@ const About = () => {
                           Adversaries already harvest‑now, decrypt‑later: collecting data and signatures today to break them once quantum capabilities arrive.
                         </p>
                         <p>
-                          For Web3, protocol‑level migration demands hard forks, consensus changes, and multi‑year audits—a path many networks will delay or resist.
+                          For Web3, protocol‑level migration demands hard forks, consensus changes, and multi‑year audits a path many networks will delay or resist.
                         </p>
                       </div>
                     </div>
@@ -365,7 +365,7 @@ const About = () => {
 
                   <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-2xl p-8">
                     <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                      QuantZen™ offers a third path: let applications—wallets, dApps, bridges—adopt quantum-safe security now, without waiting for chain upgrades or risking community splits.
+                      QuantZen™ offers a third path: let applications wallets, dApps, bridges adopt quantum-safe security now, without waiting for chain upgrades or risking community splits.
                     </p>
                     <p className="text-lg text-muted-foreground leading-relaxed">
                       This is not about replacing blockchains but augmenting them: you remain on your chosen chain, with the same UX, while gaining a future-proof dual-signature layer that defends against both today's and tomorrow's threats.
