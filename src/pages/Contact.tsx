@@ -477,7 +477,7 @@ const Contact = () => {
     {
       icon: Send,
       title: "Telegram",
-      contact: "@zenithstudio009",
+      contact: "@quantzen",
       subtext: "24/7 support for critical issues",
     },
     {
