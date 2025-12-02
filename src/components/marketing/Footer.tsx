@@ -84,7 +84,7 @@ const Footer = () => {
       { name: "Why Us", href: "/why-us" },
       { name: "Product", href: "/product" },
       { name: "Partners", href: "/call-for-pocs" },
-      { name: "Quantum-Proof Docs", href: "https://www.quantzen.info/", external: true },
+      { name: "Quantum-Proof Docs", href: "https://www.quantzensdk.live/", external: true },
     ],
     Company: [
       { name: "Roadmap", href: "/roadmap" },
