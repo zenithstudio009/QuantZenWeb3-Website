@@ -90,7 +90,7 @@ const Footer = () => {
       { name: "Roadmap", href: "/roadmap" },
       { name: "Contact", href: "/contact" },
       { name: "About Us", href: "/about" },
-      { name: "Whitepaper", href: "https://drive.google.com/file/d/1saUFPcv5kjfmV_Qg4KEwrJz891EBnsCW/view?usp=drivesdk", external: true },
+      { name: "Whitepaper", href: "https://drive.google.com/file/d/1mHWGSv2ViPJkNH-xkYkbl9MjjidYvVeB/view", external: true },
     ],
     Legal: [
       { name: "Privacy Policy", href: "#", action: () => setIsPrivacyOpen(true) },
