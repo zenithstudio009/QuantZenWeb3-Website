@@ -72,7 +72,7 @@ const ThreatMitigationTable = () => {
         }}
       />
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-full">,
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-full">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

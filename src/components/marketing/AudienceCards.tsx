@@ -156,7 +156,7 @@ const AudienceCards = () => {
                   >
                     <div
   className="flex items-center justify-between cursor-pointer hover:text-quantum-secondary transition-colors duration-300"
-  onClick={() => window.open("https://calendar.app.google/oHnneZM8DAmQ3hfF6", "_blank")}
+  onClick={() => window.open("https://outlook.office.com/bookwithme/user/6c40c19ef70d49a4a0b26a289f3b3005@quantzen.live/meetingtype/FTx1cTuAEkq6RUz2kd8k7w2?anonymous&ismsaljsauthenabled&ep=mlink", "_blank")}
 >
   <span className="text-sm font-medium text-quantum-primary">
     Schedule a Demo.

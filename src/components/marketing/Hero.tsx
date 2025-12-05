@@ -38,7 +38,7 @@ const Hero = () => {
       icon: Shield,
       title: "QuantZen™ - Quantum-Safe SDK",
       // subtitle: "Signing, Encryption, Audit",
-      content: "Securing Web3 Applications Against the Quantum Attacks Without Changing the Base Protocol or Hard Forks.",
+      content: "QuantZen™ - Quantum-Safe SDK (signing, encryption, audit trail) , Securing Web3 Applications from Quantum Threats, also a crypto-agility layer for Web3 built to evolve as cryptographic standards evolve, without performing hard-forks or re-engineering consensus mechanisms.",
       color: "from-blue-400 via-cyan-400 to-blue-500"
     },
     {
@@ -47,7 +47,7 @@ const Hero = () => {
       icon: Zap,
       title: "Instant Quantum Protection",
       // subtitle: "Minutes to Implementation",
-      content: "With QuantZen™, any Dapp can become quantum‑proof in minutes while staying fully compatible with the L1/L2 irrespective of any EVM or NON-EVM chains. Projects Built on classical cryptography like ECDSA, which Quantum computers will break by 2030.",
+      content: "With QuantZen™, any Dapp can become quantum‑proof in minutes while staying fully compatible with the L1/L2 irrespective of any EVM or NON-EVM chains. Projects Built on classical cryptography like ECDSA, which Quantum computers will break by 2030. QuantZen™ Built on post-quantum cryptography (PQC), such as CRYSTALS-Dilithium and Kyber are NIST approved standards that protects wallets, dApps, bridges, CEX and custodians from Quantum attacks at the application level.",
       color: "from-purple-400 via-pink-400 to-purple-500"
     },
     {
@@ -56,7 +56,7 @@ const Hero = () => {
       icon: Lock,
       title: "NIST-Approved Standards",
       // subtitle: "End-to-End Protection",
-      content: "QuantZen™ Built on post-quantum cryptography (PQC), such as CRYSTALS-Dilithium and Kyber are NIST approved standards that protects wallets, dApps, bridges, CEX and custodians from Quantum attacks at the application level. QuantZen™ SDK doesn't just help you sign quantum-safe transactions it ensures the entire flow key generation, storage, backup, audit, transmission is quantum-proof end-to-end.",
+      content: "QuantZen™ SDK doesn’t just help you sign quantum-safe transactions it ensures the entire flow key generation, storage, backup, audit, transmission is quantum-proof end-to-end.",
       color: "from-green-400 via-emerald-400 to-green-500"
     }
   ];
@@ -295,7 +295,7 @@ const Hero = () => {
                         variant="quantum" 
                         size="default"
                         className="group relative overflow-hidden cursor-pointer w-full sm:w-auto min-w-[250px]"
-                        onClick={() => window.open('https://calendar.app.google/oHnneZM8DAmQ3hfF6', '_blank')}
+                        onClick={() => window.open('https://outlook.office.com/bookwithme/user/6c40c19ef70d49a4a0b26a289f3b3005@quantzen.live/meetingtype/FTx1cTuAEkq6RUz2kd8k7w2?anonymous&ismsaljsauthenabled&ep=mlink', '_blank')}
                       >
                         <span className="relative z-10">Book a 30-min Migration Consult</span>
                         <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300 relative z-10" />

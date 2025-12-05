@@ -3,12 +3,12 @@ import { Card } from "@/components/ui/card";
 import { CheckCircle, XCircle, ArrowRight } from "lucide-react";
 
 const advantages = [
-  { advantage: "Zero Migration Required", quantzen: "✓ Works with existing blockchains", traditional: "✗ Requires complete blockchain rebuild" },
-  { advantage: "Backward Compatibility", quantzen: "✓ Supports all current applications", traditional: "✗ Breaks existing smart contracts" },
-  { advantage: "Implementation Speed", quantzen: "✓ Deploy in days, not years", traditional: "✗ Multi-year migration timeline" },
-  { advantage: "Network Effects", quantzen: "✓ Preserves existing ecosystem", traditional: "✗ Loses network effects" },
-  { advantage: "User Experience", quantzen: "✓ Seamless transition", traditional: "✗ User re-onboarding required" },
-  { advantage: "Cost Efficiency", quantzen: "✓ Minimal integration costs", traditional: "✗ Expensive full migration" }
+  { advantage: "Security Upgrade Path", quantzen: "✓ No hard forks — seamless quantum-secure upgrade", traditional: "✗ Requires hard forks — disruptive and risky; can fracture communities" },
+  { advantage: "Engineering Complexity", quantzen: "✓ No consensus surgery; drop-in cryptographic upgrade", traditional: "✗ Years of cryptography & consensus overhauls" },
+  { advantage: "Governance Impact", quantzen: "✓ Governance-agnostic avoids conflict and delays", traditional: "✗ Long governance debates, political friction and voting delays" },
+  { advantage: "Application Compatibility", quantzen: "✓ Backward compatible apps require zero migration", traditional: "✗ Smart contracts must be re-audited, rewritten, and refactored" },
+  { advantage: "Deployment Cost & Time", quantzen: "✓ Fast deployment → no ecosystem disruption", traditional: "✗ Costly, slow migration cycle operational risk" },
+  { advantage: "Exposure to “Harvest-Now, Decrypt-Later”", quantzen: "✓ Immediate post-quantum protection before attackers strike", traditional: "✗ Remains vulnerable during multi-year upgrade process" }
 ];
 
 const ComparisonSection = () => {
@@ -22,7 +22,7 @@ const ComparisonSection = () => {
         }}
       />
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">,
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -125,8 +125,9 @@ const ComparisonSection = () => {
           <div className="bg-gradient-to-r from-quantum-primary/10 to-secondary/10 rounded-2xl p-6 sm:p-10 border border-quantum-primary/20 text-center">
             <h3 className="text-2xl sm:text-3xl font-bold mb-4">The Bottom Line</h3>
             <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
-              QuantZen™ provides <span className="text-gradient font-semibold">quantum protection today.</span> 
-              No migration, No downtime, No loss of ecosystem integrity.
+              With QuantZen,apps can <span className="text-gradient font-semibold"> quantum-proof </span> 
+              themselves immediately - no forks, no rewrites - while remaining fully compatible with their chosen L1 or L2.
+
             </p>
           </div>
         </motion.div>

@@ -27,9 +27,9 @@ const features = [
 
 const howItWorksSteps = [
   
-  "Sign as usual-Your app or wallet continues to use its existing digital signature flow  no change in the user experience.",
-  "QuantZen™  adds next-gen protection-In parallel, QuantZen™ applies an additional cryptographic layer bound to the transaction’s key parameters securing its integrity and provenance across time and computing eras.",
-  "Verified and auditable-Networks and services can validate both layers instantly, while optional off-chain proofs maintain compliance and forensic traceability  without touching the base chain."
+  "You sign as normal (ECDSA/EdDSA).",
+  "QuantZen signs again (e.g., Dilithium), binding the signature to the transaction’s metadata (chain ID, nonce, amount, receiver, timestamp).",
+  "Contracts or services verify both before settlement. Optional proofs are stored off‑chain for compliance/audit."
 ];
 
 const QuantZenNutshell = () => {
@@ -43,7 +43,7 @@ const QuantZenNutshell = () => {
         }}
       />
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-full">,
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-full">
           {/* Intro */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

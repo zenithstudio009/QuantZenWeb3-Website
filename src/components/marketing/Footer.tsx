@@ -97,7 +97,7 @@ const Footer = () => {
       { name: "Terms of Use", href: "#", action: () => setIsTermsOpen(true) },
     ],
     Connect: [
-      { name: "Book A Demo Call", href: "https://calendar.app.google/oHnneZM8DAmQ3hfF6", external: true },
+      { name: "Book A Demo Call", href: "https://outlook.office.com/bookwithme/user/6c40c19ef70d49a4a0b26a289f3b3005@quantzen.live/meetingtype/FTx1cTuAEkq6RUz2kd8k7w2?anonymous&ismsaljsauthenabled&ep=mlink", external: true },
     ],
   };
 
