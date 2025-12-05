@@ -352,7 +352,7 @@ const Hero = () => {
                       transition={{ duration: 0.6, delay: 1.0 }}
                       className="text-sm sm:text-base text-blue-200/80 font-medium tracking-wide uppercase"
                     >
-                      Backed by
+                      Powered by
                     </motion.p>
                     
                     <motion.div
@@ -361,11 +361,11 @@ const Hero = () => {
                       transition={{ duration: 0.6, delay: 1.1 }}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => window.open('https://www.quantumsecuritydefence.com/', '_blank')}
+                      onClick={() => window.open('https://www.zenithstudio.live/', '_blank')}
                       className="flex items-center justify-center p-4 sm:p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 cursor-pointer"
                     >
                       <img
-                        src="/new logo.png"
+                        src="/logo_zenith.jpg"
                         alt="Backed by Logo"
                         className="h-8 sm:h-10 md:h-12 w-auto object-contain filter brightness-110 hover:brightness-125 transition-all duration-300"
                       />
