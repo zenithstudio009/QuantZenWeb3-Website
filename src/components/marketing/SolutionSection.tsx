@@ -29,14 +29,14 @@ const SolutionSection = () => {
     },
     {
       icon: RotateCcw,
-      title: "Crypto-agile by design — swap algorithms as standards evolve",
+      title: "Crypto-agile by design  swap algorithms as standards evolve",
       description: "Future-proof architecture that adapts as new quantum-safe standards emerge.",
       color: "from-blue-400 to-indigo-500",
       bgGlow: "bg-blue-500/20"
     },
     {
       icon: Zap,
-      title: "Zero disruption — no forks, no consensus surgery, no enterprise re-architecture",
+      title: "Zero disruption, no forks, no consensus surgery, no enterprise re-architecture",
       description: "Seamless integration that doesn't require changing existing infrastructure.",
       color: "from-cyan-400 to-blue-500",
       bgGlow: "bg-cyan-500/20"
