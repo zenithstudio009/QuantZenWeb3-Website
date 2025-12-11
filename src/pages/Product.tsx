@@ -79,7 +79,7 @@ const Product = () => {
 
 const handleDownload = () => {
     // Open Google Drive document in new tab for viewing/downloading
-    const driveUrl = "https://drive.google.com/file/d/1saUFPcv5kjfmV_Qg4KEwrJz891EBnsCW/view?usp=drivesdk";
+    const driveUrl = "https://quantzen-my.sharepoint.com/:b:/g/personal/support_quantzen_live/IQBuPTTFs20jT4vWull0t_mgAfAIx-mJt8weznC88NHkPlo";
     window.open(driveUrl, '_blank');
   };
 
