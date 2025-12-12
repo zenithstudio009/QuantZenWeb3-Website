@@ -38,15 +38,6 @@ const About = () => {
       linkedin: "https://www.linkedin.com/in/clairecblockchain/",
     },
     {
-      name: "Ramesh Gopal",
-      role: "CTO",
-      expertise: "Blockchain Architect, Smart Contracts & DeFi Expert",
-      description: "Experienced Blockchain Architect with 13+ years in DLT, Ethereum, and Web3 security expert in smart contracts, DeFi ecosystems, and scalable decentralised architectures driving innovation and quantum-safe integration.",
-      image: "/ramesh.jpg",
-      imagePosition: "center top", 
-      linkedin: "https://www.linkedin.com/in/ramesh-gopal/",
-    },
-    {
       name: "Pathanjali Sharma",
       role: "Head of Business Development & Investor Relations",
       expertise: "Venture Capitalist & Strategic Leader in Growth & Partnerships",
@@ -131,9 +122,9 @@ const About = () => {
 
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden bg-white">
       <Navigation />
-      <div className="bg-gradient-to-br from-background to-secondary/10 overflow-x-hidden w-full">
+      <div className="bg-white overflow-x-hidden w-full">
         {/* Navigation Spacing */}
         <div className="h-16"></div>
 
@@ -478,7 +469,7 @@ const About = () => {
               ))}
             </div>
 
-            {/* Row 2: Next 2 members */}
+            {/* Row 2: Steve and Ashish */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
               {teamMembers.slice(3, 5).map((member, index) => (
                 <div
@@ -540,71 +531,6 @@ const About = () => {
                   </div>
                 </div>
               ))}
-            </div>
-
-            {/* Row 3: CEO/Founder (Ashish) - Highlighted */}
-            <div className="flex justify-center">
-              <div className="relative max-w-md w-full">
-                <div className="group relative bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-xl border-2 border-primary/30 rounded-3xl p-10 hover:border-primary/60 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-primary/30">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-3xl transition-all duration-500"></div>
-                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent via-transparent to-primary/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
-                  {/* CEO Badge */}
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-gradient-to-r from-primary to-secondary text-white px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
-                      Founder & CEO
-                    </div>
-                  </div>
-
-                  <div className="relative z-10">
-                    {/* Avatar */}
-                    <div className="relative w-40 h-40 mx-auto mb-6 mt-4">
-                      <div className="w-full h-full rounded-3xl overflow-hidden border-4 border-primary/50 group-hover:border-primary transition-all duration-500 shadow-2xl group-hover:shadow-3xl group-hover:shadow-primary/30">
-                        <img
-                          src={teamMembers[5].image}
-                          alt={teamMembers[5].name}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          style={{ objectPosition: teamMembers[5].imagePosition || 'center center' }}
-                          onError={(e) => {
-                            e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(teamMembers[5].name)}&background=3b82f6&color=fff&size=320`;
-                          }}
-                        />
-                      </div>
-                      <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-100 scale-75">
-                        <Zap className="w-5 h-5 text-white" />
-                      </div>
-                    </div>
-
-                    {/* Info */}
-                    <div className="text-center mb-6">
-                      <h3 className="text-2xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{teamMembers[5].name}</h3>
-                      <p className="text-base text-primary font-semibold mb-4 uppercase tracking-wider">{teamMembers[5].role}</p>
-                      
-                      {/* Expertise Badge */}
-                      <div className="inline-block bg-gradient-to-r from-primary/30 to-secondary/30 border border-primary/40 rounded-full px-6 py-3 backdrop-blur-sm mb-4">
-                        <p className="text-sm text-primary font-semibold">{teamMembers[5].expertise.split(',')[0].trim()}</p>
-                      </div>
-
-                      {/* Full Description */}
-                      <p className="text-sm text-muted-foreground leading-relaxed px-2">
-                        {teamMembers[5].description}
-                      </p>
-                    </div>
-
-                    {/* Social Links */}
-                    <div className="flex justify-center">
-                      <a
-                        href={teamMembers[5].linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/link w-14 h-14 rounded-2xl bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center hover:from-primary hover:to-secondary hover:border-transparent transition-all duration-300 hover:shadow-xl hover:shadow-primary/40"
-                      >
-                        <Linkedin className="w-6 h-6 text-primary group-hover/link:text-white transition-colors duration-300" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
