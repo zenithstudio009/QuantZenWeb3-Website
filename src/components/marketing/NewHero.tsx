@@ -13,13 +13,14 @@ const NewHero = () => {
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/bg9.mp4" type="video/mp4" />
+        <source src="/bg11.mp4" type="video/mp4" />
       </video>
 
       {/* ---- Strong Overlays for Visibility ---- */}
-      <div className="absolute inset-0 bg-black/75" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
-      <div className="absolute inset-0 bg-gradient-radial from-black/70 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-black/40" />
+<div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+<div className="absolute inset-0 bg-gradient-radial from-black/35 via-transparent to-transparent" />
+
 
       {/* ---- Content ---- */}
       <div className="relative z-10 container mx-auto px-6 lg:px-12 py-32 text-center max-w-7xl">
