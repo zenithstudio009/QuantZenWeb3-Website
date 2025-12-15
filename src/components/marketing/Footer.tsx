@@ -142,6 +142,7 @@ const Footer = () => {
               src="/hourglass1-unscreen.gif"
               alt="Hourglass Animation"
               className="w-16 h-16 sm:w-24 sm:h-24 rounded-lg mb-4 sm:mb-0"
+              loading="lazy"
             />
 
             {/* Countdown boxes */}
@@ -174,6 +175,7 @@ const Footer = () => {
                 src="/logo.png" 
                 alt="QuantZen Logo" 
                 className="w-24 h-24 object-contain"
+                loading="lazy"
               />
             </div>
             <p className="text-sm text-muted-foreground  mb-2">

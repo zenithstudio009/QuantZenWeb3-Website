@@ -1,12 +1,15 @@
+import { lazy, Suspense } from "react";
 import Navigation from "@/components/marketing/Navigation";
 import NewHero from "@/components/marketing/NewHero";
-import TrustSection from "@/components/marketing/TrustSection";
-import ProblemSection from "@/components/marketing/ProblemSection";
-import SolutionSection from "@/components/marketing/SolutionSection";
-import HowItWorksSection from "@/components/marketing/HowItWorksSection";
-import BenefitsSection from "@/components/marketing/BenefitsSection";
-import StandardsSection from "@/components/marketing/StandardsSection";
-import Footer from "@/components/marketing/Footer";
+
+// Lazy load below-the-fold components
+const TrustSection = lazy(() => import("@/components/marketing/TrustSection"));
+const ProblemSection = lazy(() => import("@/components/marketing/ProblemSection"));
+const SolutionSection = lazy(() => import("@/components/marketing/SolutionSection"));
+const HowItWorksSection = lazy(() => import("@/components/marketing/HowItWorksSection"));
+const BenefitsSection = lazy(() => import("@/components/marketing/BenefitsSection"));
+const StandardsSection = lazy(() => import("@/components/marketing/StandardsSection"));
+const Footer = lazy(() => import("@/components/marketing/Footer"));
 
 const Index = () => {
   return (
@@ -15,11 +18,12 @@ const Index = () => {
       <Navigation />
       <NewHero />
 
-      {/* HERO → TRUST */}
-      <div className="relative">
-        <div className="relative z-20">
-          <TrustSection />
-        </div>
+      <Suspense fallback={<div className="h-screen" />}>
+        {/* HERO → TRUST */}
+        <div className="relative">
+          <div className="relative z-20">
+            <TrustSection />
+          </div>
         <div
           className="absolute z-10 pointer-events-none"
           style={{
@@ -124,6 +128,7 @@ const Index = () => {
       </div>
 
       <Footer />
+      </Suspense>
     </div>
   );
 };
