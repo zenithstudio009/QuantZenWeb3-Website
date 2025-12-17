@@ -145,10 +145,10 @@ const NewHero = () => {
   initial={{ opacity: 0, y: 25 }}
   animate={{ opacity: 1, y: 0 }}
   className="mt-10 flex flex-col items-center"
->
-  <span className="text-white/60 text-sm mb-2 mr-20">Developed by</span>
+> 
+  <span className="text-white/60 text-sm  mr-60 ">Developed by</span>
 
-  <div className="flex items-center gap-4">
+  <div className="flex items-center gap-2">
     
     {/* Zenith Studio Box */}
     <a
@@ -169,7 +169,11 @@ const NewHero = () => {
   transition={{ duration: 0.8 }}
   src="/trustbadge1.png"
   alt="Trust Badge"
-  className="w-40 h-auto drop-shadow-2xl"
+  className="
+  w-56 sm:w-64 lg:w-72 
+  h-auto 
+  drop-shadow-2xl
+"
 />
 
   </div>
