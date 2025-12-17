@@ -14,7 +14,7 @@ const NewHero = () => {
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/bg11.mp4" type="video/mp4" />
+        <source src="/bg12.mp4" type="video/mp4" />
       </video>
 
       {/* ---- Strong Overlays for Visibility ---- */}
