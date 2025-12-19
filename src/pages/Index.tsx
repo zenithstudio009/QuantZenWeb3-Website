@@ -4,6 +4,7 @@ import NewHero from "@/components/marketing/NewHero";
 
 // Lazy load below-the-fold components
 const TrustSection = lazy(() => import("@/components/marketing/TrustSection"));
+const PressReleaseSection = lazy(() => import("@/components/marketing/PressReleaseSection"));
 const ProblemSection = lazy(() => import("@/components/marketing/ProblemSection"));
 const SolutionSection = lazy(() => import("@/components/marketing/SolutionSection"));
 const HowItWorksSection = lazy(() => import("@/components/marketing/HowItWorksSection"));
@@ -37,7 +38,25 @@ const Index = () => {
         />
       </div>
 
-      {/* TRUST → PROBLEM */}
+      {/* TRUST → PRESS RELEASE */}
+      <div className="relative">
+        <div className="relative z-20">
+          <PressReleaseSection />
+        </div>
+        <div
+          className="absolute z-10 pointer-events-none"
+          style={{
+            width: "400px",
+            height: "400px",
+            backgroundColor: "#3F49E1",
+            filter: "blur(200px)",
+            top: 0,
+            left: "-350px",
+          }}
+        />
+      </div>
+
+      {/* PRESS RELEASE → PROBLEM */}
       <div className="relative">
         <div className="relative z-20">
           <ProblemSection />
