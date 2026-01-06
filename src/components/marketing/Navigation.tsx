@@ -29,7 +29,7 @@ const Navigation = () => {
   // Main navigation items that will be visible on desktop
   const mainNavLinks = [
     { name: "Quantum-Proof Docs", href: "https://www.quantzensdk.live/", external: true },
-    { name: "Whitepaper", href: "https://quantzen-my.sharepoint.com/:b:/g/personal/support_quantzen_live/IQBuPTTFs20jT4vWull0t_mgAfAIx-mJt8weznC88NHkPlo", external: true },
+    { name: "Whitepaper", href: "https://quantzen-my.sharepoint.com/:b:/g/personal/support_quantzen_live/IQBkyivWXs8aRJijKAamEPzzAb0A6fSVcuiNX4jWPlrqHsY", external: true },
     { name: "Contact", href: "/contact" },
   ];
 
