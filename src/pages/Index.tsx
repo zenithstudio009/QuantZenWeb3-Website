@@ -4,6 +4,7 @@ import NewHero from "@/components/marketing/NewHero";
 
 // Lazy load below-the-fold components
 const TrustSection = lazy(() => import("@/components/marketing/TrustSection"));
+const DemoVideoSection = lazy(() => import("@/components/marketing/DemoVideoSection"));
 const PressReleaseSection = lazy(() => import("@/components/marketing/PressReleaseSection"));
 const ProblemSection = lazy(() => import("@/components/marketing/ProblemSection"));
 const SolutionSection = lazy(() => import("@/components/marketing/SolutionSection"));
@@ -38,7 +39,14 @@ const Index = () => {
         />
       </div>
 
-      {/* TRUST → PRESS RELEASE */}
+      {/* TRUST → DEMO VIDEO */}
+      <div className="relative">
+        <div className="relative z-20">
+          <DemoVideoSection />
+        </div>
+      </div>
+
+      {/* DEMO VIDEO → PRESS RELEASE */}
       <div className="relative">
         <div className="relative z-20">
           <PressReleaseSection />
