@@ -90,7 +90,7 @@ const Footer = () => {
       { name: "Roadmap", href: "/roadmap" },
       { name: "Contact", href: "/contact" },
       { name: "About Us", href: "/about" },
-      { name: "Whitepaper", href: "https://quantzen-my.sharepoint.com/:b:/g/personal/support_quantzen_live/IQBkyivWXs8aRJijKAamEPzzAb0A6fSVcuiNX4jWPlrqHsY", external: true },
+      { name: "Whitepaper", href: "https://quantzen-my.sharepoint.com/:b:/g/personal/support_quantzen_live/IQBCutZhPX-9Q5bMffOPUoRhAc4c8IYW5DbX7jLUyXPgCAE", external: true },
     ],
     Legal: [
       { name: "Privacy Policy", href: "#", action: () => setIsPrivacyOpen(true) },

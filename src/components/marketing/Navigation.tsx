@@ -1,18 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight, Play } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDemoOpen, setIsDemoOpen] = useState(false);
 
   // Close menu when pressing Escape
   useEffect(() => {
@@ -36,9 +28,8 @@ const Navigation = () => {
 
   // Main navigation items that will be visible on desktop
   const mainNavLinks = [
-    { name: "Demo", type: "demo" as const },
     { name: "Quantum-Proof Docs", href: "https://www.quantzensdk.live/", external: true },
-    { name: "Whitepaper", href: "https://quantzen-my.sharepoint.com/:b:/g/personal/support_quantzen_live/IQBkyivWXs8aRJijKAamEPzzAb0A6fSVcuiNX4jWPlrqHsY", external: true },
+    { name: "Whitepaper", href: "https://quantzen-my.sharepoint.com/:b:/g/personal/support_quantzen_live/IQBCutZhPX-9Q5bMffOPUoRhAc4c8IYW5DbX7jLUyXPgCAE", external: true },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -95,7 +86,7 @@ const Navigation = () => {
           <div className="flex items-center ml-auto">
             {/* Desktop Links and Social Icons */}
             <div className="hidden md:flex items-center gap-2">
-              {/* Main Navigation Links (Demo, Whitepaper & Contact) */}
+              {/* Main Navigation Links (Whitepaper & Contact) */}
               <div className="flex items-center gap-2">
                 {mainNavLinks.map((link, index) => (
                   <motion.div
@@ -105,37 +96,7 @@ const Navigation = () => {
                     transition={{ delay: index * 0.05 }}
                     whileHover={{ scale: 1.05, y: -2 }}
                   >
-                    {link.type === "demo" ? (
-                      <Dialog open={isDemoOpen} onOpenChange={setIsDemoOpen}>
-                        <DialogTrigger asChild>
-                          <button
-                            className="flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-gray-900 bg-white/60 shadow-sm border border-quantum-primary/40 backdrop-blur-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)] hover:border-quantum-primary"
-                          >
-                            <Play className="w-4 h-4 opacity-90 text-quantum-primary" />
-                            <span className="text-sm sm:text-base">{link.name}</span>
-                          </button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-4xl p-0">
-                          <DialogHeader className="p-6 pb-0">
-                            <DialogTitle>QuantZen™ Wallet Demo</DialogTitle>
-                          </DialogHeader>
-                          <div className="p-6 pt-4">
-                            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
-                              <iframe 
-                                src="https://quantzen-my.sharepoint.com/personal/support_quantzen_live/_layouts/15/embed.aspx?UniqueId=608ca5b4-6dc8-40fd-aebd-d6b18cb5c797&embed=%7B%22af%22%3Atrue%2C%22ust%22%3Afalse%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" 
-                                width="640" 
-                                height="360" 
-                                frameBorder="0" 
-                                scrolling="no" 
-                                allowFullScreen 
-                                title="QuantZen™_WalletDemo.mp4" 
-                                style={{ border: 'none', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, height: '100%', maxWidth: '100%' }}
-                              />
-                            </div>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    ) : link.external ? (
+                    {link.external ? (
                       <a
                         href={link.href}
                         target="_blank"
@@ -147,7 +108,7 @@ const Navigation = () => {
                       </a>
                     ) : (
                       <Link
-                        to={link.href!}
+                        to={link.href}
                         className="flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-gray-900 bg-white/60 shadow-sm border border-quantum-primary/40 backdrop-blur-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)] hover:border-quantum-primary"
                       >
                         <span className="text-sm sm:text-base">{link.name}</span>
@@ -270,41 +231,7 @@ const Navigation = () => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: (hiddenNavLinks.length + index) * 0.1 }}
                     >
-                      {link.type === "demo" ? (
-                        <Dialog open={isDemoOpen} onOpenChange={setIsDemoOpen}>
-                          <DialogTrigger asChild>
-                            <button
-                              onClick={() => setIsOpen(false)}
-                              className="group flex items-center justify-between w-full p-4 rounded-xl font-medium text-gray-900 bg-white/80 border border-quantum-primary/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,255,0.3)] hover:bg-quantum-primary/5 hover:border-quantum-primary"
-                            >
-                              <span className="flex items-center gap-2">
-                                <Play className="w-5 h-5 text-quantum-primary" />
-                                {link.name}
-                              </span>
-                              <ArrowUpRight className="w-5 h-5 opacity-60 group-hover:opacity-100 text-quantum-primary transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
-                            </button>
-                          </DialogTrigger>
-                          <DialogContent className="max-w-4xl p-0">
-                            <DialogHeader className="p-6 pb-0">
-                              <DialogTitle>QuantZen™ Wallet Demo</DialogTitle>
-                            </DialogHeader>
-                            <div className="p-6 pt-4">
-                              <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
-                                <iframe 
-                                  src="https://quantzen-my.sharepoint.com/personal/support_quantzen_live/_layouts/15/embed.aspx?UniqueId=608ca5b4-6dc8-40fd-aebd-d6b18cb5c797&embed=%7B%22af%22%3Atrue%2C%22ust%22%3Afalse%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" 
-                                  width="640" 
-                                  height="360" 
-                                  frameBorder="0" 
-                                  scrolling="no" 
-                                  allowFullScreen 
-                                  title="QuantZen™_WalletDemo.mp4" 
-                                  style={{ border: 'none', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, height: '100%', maxWidth: '100%' }}
-                                />
-                              </div>
-                            </div>
-                          </DialogContent>
-                        </Dialog>
-                      ) : link.external ? (
+                      {link.external ? (
                         <a
                           href={link.href}
                           target="_blank"
@@ -317,7 +244,7 @@ const Navigation = () => {
                         </a>
                       ) : (
                         <Link
-                          to={link.href!}
+                          to={link.href}
                           onClick={() => setIsOpen(false)}
                           className="group flex items-center justify-between p-4 rounded-xl font-medium text-gray-900 bg-white/80 border border-quantum-primary/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,255,0.3)] hover:bg-quantum-primary/5 hover:border-quantum-primary"
                         >
