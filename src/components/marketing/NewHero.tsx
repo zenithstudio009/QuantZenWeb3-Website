@@ -92,31 +92,55 @@ const NewHero = () => {
         </motion.div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href="https://www.quantzensdk.live/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-7 py-3 rounded-xl font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white flex items-center gap-3 justify-center"
-            >
-              Get the SDK <ArrowRight className="w-5 h-5" />
-            </a>
+       
+        {/* CTA */}
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  className="mb-8"
+>
+  {/* Images before CTA */}
+  <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mb-6">
+    <motion.img
+      src="/1.png"
+      alt="Feature 1"
+      className="w-32 sm:w-40 lg:w-48 h-auto rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.3 }}
+    />
+    <motion.img
+      src="/2.png"
+      alt="Feature 2"
+      className="w-32 sm:w-40 lg:w-48 h-auto rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.3 }}
+    />
+  </div>
 
-            <a
-              href="https://outlook.office.com/bookwithme/user/6c40c19ef70d49a4a0b26a289f3b3005@quantzen.live/meetingtype/FTx1cTuAEkq6RUz2kd8k7w2?anonymous&ismsaljsauthenabled&ep=mlink"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-7 py-3 rounded-xl font-semibold border border-white/25 bg-white/10 text-white"
-            >
-              Book a 30-min Migration Consult
-            </a>
-          </div>
-        </motion.div>
+  {/* Buttons */}
+  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+    <a
+      href="https://www.quantzensdk.live/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="px-7 py-3 rounded-xl font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white flex items-center gap-3 justify-center"
+    >
+      Get the SDK <ArrowRight className="w-5 h-5" />
+    </a>
+
+    <a
+      href="https://outlook.office.com/bookwithme/user/6c40c19ef70d49a4a0b26a289f3b3005@quantzen.live/meetingtype/FTx1cTuAEkq6RUz2kd8k7w2?anonymous&ismsaljsauthenabled&ep=mlink"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="px-7 py-3 rounded-xl font-semibold border border-white/25 bg-white/10 text-white"
+    >
+      Book a 30-min Migration Consult
+    </a>
+  </div>
+</motion.div>
+
 
         {/* Developed By */}
        <motion.div
