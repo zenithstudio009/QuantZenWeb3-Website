@@ -26,6 +26,17 @@ const pressSlides = [
     cta: "Read Full Article",
     link: "https://thequantuminsider.com/2026/01/05/quantzen-quantum-safe-sdk-web3/",
   },
+  {
+    date: "January 2026",
+    title: "QuantZen Launches Quantum-Safe SDK to Strengthen Web3 Security",
+    desc1:
+      "QuantZen introduces a next-generation quantum-safe SDK designed to protect Web3 applications from emerging quantum threats.",
+    desc2:
+      "The solution enables developers to build resilient, future-proof decentralized systems with enhanced cryptographic security.",
+    image: "/press-3.png",
+    cta: "Read Full Article",
+    link: "https://quantumcomputer.blog/the-quantzen-quantum-safe-technology-for-web3/",
+  },
 ];
 
 /* -------------------- COMPONENT -------------------- */
